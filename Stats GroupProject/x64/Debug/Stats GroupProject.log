@@ -1,0 +1,5 @@
+﻿  Option.cpp
+C:\Users\12194\source\repos\Project2\Stats GroupProject\Option.cpp(69,11): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\12194\source\repos\Project2\Stats GroupProject\Option.cpp(90,18): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\12194\source\repos\Project2\Stats GroupProject\Option.cpp(104,24): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  Stats GroupProject.vcxproj -> C:\Users\12194\source\repos\Project2\x64\Debug\Stats GroupProject.exe
