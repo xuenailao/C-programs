@@ -5,7 +5,7 @@
 #include<vector>
 #pragma warning(disable:4996)
 using namespace std;
-/*ÎÒ°®cÓïÑÔ£¬ÎÒ°®Êı¾İ½á¹¹£¬´óÑ§ÉúÄÄÓĞ²»·èµÄÄÄÓĞ²»·èµÄ*/
+/*æˆ‘çˆ±cè¯­è¨€ï¼Œæˆ‘çˆ±æ•°æ®ç»“æ„ï¼Œå¤§å­¦ç”Ÿå“ªæœ‰ä¸ç–¯çš„å“ªæœ‰ä¸ç–¯çš„*/
 
 template<typename T>
 class setnode {
@@ -23,9 +23,9 @@ public:
 	}
 
 };
-//ÕâÀïsetnode¼ÓÈëparentÖ¸Õë¿ÉÒÔ±ÜÃâºóĞøº¯ÊıÄÚÑ­»·£¬¸ü¼ò½à£¬¿ÉÒÔ³¢ÊÔ¸Ä½ø
+//è¿™é‡ŒsetnodeåŠ å…¥parentæŒ‡é’ˆå¯ä»¥é¿å…åç»­å‡½æ•°å†…å¾ªç¯ï¼Œæ›´ç®€æ´ï¼Œå¯ä»¥å°è¯•æ”¹è¿›
 
-template<typename T>//¼ÓÈë±È½ÏÔ­Ôò
+template<typename T>//åŠ å…¥æ¯”è¾ƒåŸåˆ™
 class set {
 	typedef setnode<T> Node;
 
@@ -33,7 +33,7 @@ public:
 
 	Node* p = nullptr;
 
-	int treeHeight(Node* p) {//¼ÆËãµ±Ç°½ÚµãÊ÷¸ß¶È
+	int treeHeight(Node* p) {//è®¡ç®—å½“å‰èŠ‚ç‚¹æ ‘é«˜åº¦
 		if (p == NULL) {
 			return 0;
 		}
@@ -44,7 +44,7 @@ public:
 
 	}
 
-	int BalanceFactor(Node* p) {//¼ÆËã²¢¸³Öµµ±Ç°½ÚµãÆ½ºâÒò×Ó
+	int BalanceFactor(Node* p) {//è®¡ç®—å¹¶èµ‹å€¼å½“å‰èŠ‚ç‚¹å¹³è¡¡å› å­
 		if (p == NULL) {
 			return 0;
 		}
@@ -56,59 +56,59 @@ public:
 		}
 	}
 
-	void R_Rotate(Node*& p) {//ÓÒĞı
+	void R_Rotate(Node*& p) {//å³æ—‹
 		Node* lc = p->lchild;
 		p->lchild = lc->rchild;
 		lc->rchild = p;
 
 		BalanceFactor(p);
-		BalanceFactor(lc);//ÖØĞÂ¼ÆËã½ÚµãÆ½ºâÒò×Ó
+		BalanceFactor(lc);//é‡æ–°è®¡ç®—èŠ‚ç‚¹å¹³è¡¡å› å­
 
 		p = lc;
-		//µ÷ÕûĞÂµÄÍ·½Úµã
+		//è°ƒæ•´æ–°çš„å¤´èŠ‚ç‚¹
 	}
 
-	void L_Rotate(Node*& p) {//×óĞı
+	void L_Rotate(Node*& p) {//å·¦æ—‹
 		Node* rc = p->rchild;
 		p->rchild = rc->lchild;
 		rc->lchild = p;
 
 
 		BalanceFactor(p);
-		BalanceFactor(rc);//ÖØĞÂ¼ÆËã½ÚµãÆ½ºâÒò×Ó
+		BalanceFactor(rc);//é‡æ–°è®¡ç®—èŠ‚ç‚¹å¹³è¡¡å› å­
 
 		p = rc;
 	}
 
-	Node* Rebalance(Node*& p) {//Æ½ºâ
+	Node* Rebalance(Node*& p) {//å¹³è¡¡
 		int factor = 0;
 	
 		if(p!=nullptr)
 			factor = p->bf;
 
-		//·ÖËÄÖÖÇé¿öÌÖÂÛ
+		//åˆ†å››ç§æƒ…å†µè®¨è®º
 		if (factor > 1 && BalanceFactor(p->lchild) >= 0)
-			//LL,ĞèÒª1´Î×óĞı
+			//LL,éœ€è¦1æ¬¡å·¦æ—‹
 			L_Rotate(p);
 		else if (factor > 1 && BalanceFactor(p->lchild) < 0) {
-			//LR,1´Î×óĞı+1´ÎÓÒĞı
+			//LR,1æ¬¡å·¦æ—‹+1æ¬¡å³æ—‹
 			L_Rotate(p);
 			R_Rotate(p);
 		}
 		else if (factor < -1 && BalanceFactor(p->rchild) <= 0) {
-			//RR,1´ÎÓÒĞı
+			//RR,1æ¬¡å³æ—‹
 			R_Rotate(p);
 		}
 		else if (factor < -1 && BalanceFactor(p->rchild)>0) {
-			//RL,1´ÎÓÒĞı+1´Î×óĞı
+			//RL,1æ¬¡å³æ—‹+1æ¬¡å·¦æ—‹
 			R_Rotate(p);
 			L_Rotate(p);
 		}
-		//ÒÑ¾­Æ½ºâ£¬²»ĞèÒª²Ù×÷
+		//å·²ç»å¹³è¡¡ï¼Œä¸éœ€è¦æ“ä½œ
 		return p;
 
 	}
-	//AVLÊ÷ÒÑ¹¹³É£¬½ÓÏÂÀ´Íê³É¼¯ºÏ¹¹½¨
+	//AVLæ ‘å·²æ„æˆï¼Œæ¥ä¸‹æ¥å®Œæˆé›†åˆæ„å»º
 
 	Node* emplace(Node*& p, const T& v) {
 		Node* root = p;
@@ -225,11 +225,11 @@ public:
 
 };
 
-//±ß¼¯Êı×é¹¹½¨Í¼£¨¼¯ºÏ£©£¬Íê³ÉµÚ¶şÌâµÄÍ¼´¢´æ
+//è¾¹é›†æ•°ç»„æ„å»ºå›¾ï¼ˆé›†åˆï¼‰ï¼Œå®Œæˆç¬¬äºŒé¢˜çš„å›¾å‚¨å­˜
 class graphE {
 	struct edge {
-		int begin;//ÆğµãÏÂ±ê
-		int end;//ÖÕµãÏÂ±ê
+		int begin;//èµ·ç‚¹ä¸‹æ ‡
+		int end;//ç»ˆç‚¹ä¸‹æ ‡
 		int weight;
 
 		edge() { begin = 0; end = 0; weight = 0; }
@@ -268,8 +268,8 @@ class graphE {
 				return false;
 		}
 
-		//ĞèÒª½â¾öedgeÔÚsetÖĞµÄÅÅĞòÎÊÌâ£¬ÖØÔØoperator
-		//¾ÍÊÇÖØĞÂ¶¨Òå±È´óĞ¡µÄ·½Ê½
+		//éœ€è¦è§£å†³edgeåœ¨setä¸­çš„æ’åºé—®é¢˜ï¼Œé‡è½½operator
+		//å°±æ˜¯é‡æ–°å®šä¹‰æ¯”å¤§å°çš„æ–¹å¼
 	};
 
 	struct vertex {
@@ -291,11 +291,11 @@ class graphE {
 		}
 	};
 
-	set<vertex> V;//µã¼¯
-	set<edge> E;//±ß¼¯
+	set<vertex> V;//ç‚¹é›†
+	set<edge> E;//è¾¹é›†
 
-	int numV;//µãÊı
-	int numE;//±ßÊı
+	int numV;//ç‚¹æ•°
+	int numE;//è¾¹æ•°
 
 
 public:
@@ -305,32 +305,32 @@ public:
 		numV = 0;
 		numE = 0;
 
-	}//³õÊ¼»¯º¯Êı
+	}//åˆå§‹åŒ–å‡½æ•°
 
 	void CreateGraph_Edge(graphE* g) {
 		int i = 0, j = 0, k = 0;
 		edge w{};
 		vertex po{};
 		
-		printf("ÇëÊäÈë¶¥µãÊıºÍ±ßÊı:\n");
+		printf("è¯·è¾“å…¥é¡¶ç‚¹æ•°å’Œè¾¹æ•°:\n");
 		scanf("%d,%d", &g->numV, &g->numE);
-		getchar();//»ñÈ¡»Ø³µ·û
+		getchar();//è·å–å›è½¦ç¬¦
 
-		//µãÊı×é
+		//ç‚¹æ•°ç»„
 		for (i = 1; i <= g->numV; i++) {
 			po.point = i;
 			g->V.emplace(g->V.p, po);
 			
 		}
 	
-		//ÁÚ±ß¾ØÕó
+		//é‚»è¾¹çŸ©é˜µ
 		for (k = 1; k <= g->numE; k++) {
-			printf("ÒÀ´ÎÊäÈëµÚ%dÌõ±ß<vi,vj>µÄÏÂ±êi,jºÍÈ¨ÖØw:\n",k);
+			printf("ä¾æ¬¡è¾“å…¥ç¬¬%dæ¡è¾¹<vi,vj>çš„ä¸‹æ ‡i,jå’Œæƒé‡w:\n",k);
 			scanf("%d,%d,%d", &w.begin, &w.end, &w.weight);
 			getchar();
 
 			g->E.emplace(g->E.p, w);
-			//ÒòÎªÎŞÏòÍ¼£¬ËùÒÔÒ»Ìõ±ßÒªµ÷»»Í·Î²ÔÙ´¢´æÒ»±é
+			//å› ä¸ºæ— å‘å›¾ï¼Œæ‰€ä»¥ä¸€æ¡è¾¹è¦è°ƒæ¢å¤´å°¾å†å‚¨å­˜ä¸€é
 			int temp = w.begin;
 			w.begin = w.end;
 			w.end = temp;
@@ -341,7 +341,7 @@ public:
 
 	}
 
-	//Õ¹Ê¾±ß¼¯ºÏ×¨ÓÃ,ÔÚÏÂÒ»¸öº¯Êıµ÷ÓÃ
+	//å±•ç¤ºè¾¹é›†åˆä¸“ç”¨,åœ¨ä¸‹ä¸€ä¸ªå‡½æ•°è°ƒç”¨
 	void showedge(setnode<edge>* root) {
 		if (root != nullptr) {
 			printf("(%d)->(%d)<%d>\n  ", root->value.begin, root->value.end, root->value.weight);
@@ -352,7 +352,7 @@ public:
 		showedge(root->lchild);
 		showedge(root->rchild);
 	}
-	//Õ¹Ê¾µã¼¯ºÏ×¨ÓÃ,ÔÚÏÂÒ»¸öº¯Êıµ÷ÓÃ
+	//å±•ç¤ºç‚¹é›†åˆä¸“ç”¨,åœ¨ä¸‹ä¸€ä¸ªå‡½æ•°è°ƒç”¨
 	void showvertex(setnode<vertex>* root) {
 		if (root != nullptr) {
 			printf("%d ",root->value.point);
@@ -365,33 +365,33 @@ public:
 
 	void ShowGraph_Edge(graphE* g) {
 
-		//Õ¹Ê¾µã¼¯ºÏ
+		//å±•ç¤ºç‚¹é›†åˆ
 		setnode<vertex>* rootv = g->V.p;
-		printf("µã¼¯ºÏ:\n[");
+		printf("ç‚¹é›†åˆ:\n[");
 		showvertex(rootv);
 		printf("]\n");
 
-		//Õ¹Ê¾±ß¼¯ºÏ
+		//å±•ç¤ºè¾¹é›†åˆ
 		setnode<edge>* roote = g->E.p;
-		printf("±ß¼¯ºÏ:\n[");
+		printf("è¾¹é›†åˆ:\n[");
 		showedge(roote);
 		printf("]\n");
 	}
 
-	//Á½µã×î¶ÌÂ·¾¶
+	//ä¸¤ç‚¹æœ€çŸ­è·¯å¾„
 	int shortestway(int start, int des, graphE* g) {
-	//¼ÆËãÁ½¶Ëµã×î¶ÌÂ·¾¶(µÏ½ÜË¹ÌØÀ­Ëã·¨)
-	//Òª²»¶ÏÑ°ÕÒÃ»ÓĞ±»·ÃÎÊ¹ıÇÒÀëÔ´µã×î½üµÄµã
+	//è®¡ç®—ä¸¤ç«¯ç‚¹æœ€çŸ­è·¯å¾„(è¿ªæ°æ–¯ç‰¹æ‹‰ç®—æ³•)
+	//è¦ä¸æ–­å¯»æ‰¾æ²¡æœ‰è¢«è®¿é—®è¿‡ä¸”ç¦»æºç‚¹æœ€è¿‘çš„ç‚¹
 		
-		const int inf = 100000;//²»¿Éµ½´ïµÄ¾àÀë£¡
-		int n = g->numV;//Í¼µÄ¶¥µã¸öÊı
-		vector<int> dis(n, inf);//Ô´µãµ½ÆäËûµãµÄ×î¶Ì¾àÀë£¬inf±íÊ¾ÎŞ·¨µ½´ï
-		vector<bool> vis(n, false);//·ÃÎÊ¼ÇÂ¼£¬false±íÊ¾Î´·ÃÎÊ
-		vector<int> pre(n, -1);//¼ÇÂ¼Õâ¸öµãÔÚ¼ÓÈëÊ±Á¬½ÓµÄµã£¨ĞèÒªÖØµãÀí½â£©
+		const int inf = 100000;//ä¸å¯åˆ°è¾¾çš„è·ç¦»ï¼
+		int n = g->numV;//å›¾çš„é¡¶ç‚¹ä¸ªæ•°
+		vector<int> dis(n, inf);//æºç‚¹åˆ°å…¶ä»–ç‚¹çš„æœ€çŸ­è·ç¦»ï¼Œinfè¡¨ç¤ºæ— æ³•åˆ°è¾¾
+		vector<bool> vis(n, false);//è®¿é—®è®°å½•ï¼Œfalseè¡¨ç¤ºæœªè®¿é—®
+		vector<int> pre(n, -1);//è®°å½•è¿™ä¸ªç‚¹åœ¨åŠ å…¥æ—¶è¿æ¥çš„ç‚¹ï¼ˆéœ€è¦é‡ç‚¹ç†è§£ï¼‰
 		edge e{};
 		
 
-		dis[start] = 0;//Ô´µãµ½Ô´µãµÄ¾àÀëÎª0
+		dis[start] = 0;//æºç‚¹åˆ°æºç‚¹çš„è·ç¦»ä¸º0
 
 		for (int i = 0; i < n - 1; i++) {
 			int node = -1;
@@ -400,11 +400,11 @@ public:
 					node = j;
 				}
 			}
-			 // ±ê¼Ç·ÃÎÊ
+			 // æ ‡è®°è®¿é—®
 
 			for (int j = 0; j < n; j++) {
 				e.begin = node+1;
-				e.end = j+1; //endºÍbegin¶¼ÊÇ´Ó1¿ªÊ¼£¬º¯ÊıÖĞµÄµã¶¼ÊÇ´Ó0¿ªÊ¼
+				e.end = j+1; //endå’Œbeginéƒ½æ˜¯ä»1å¼€å§‹ï¼Œå‡½æ•°ä¸­çš„ç‚¹éƒ½æ˜¯ä»0å¼€å§‹
 				if (g->E.find(e) != nullptr) {
 					if (dis[j] > dis[node] + g->E.find(e)->weight) {
 						dis[j] = dis[node] + g->E.find(e)->weight;
@@ -417,34 +417,34 @@ public:
 
 		}
 
-		//´òÓ¡×î¶ÌÂ·¾¶
-		printf("´Ó%dµ½%dÂ·Ïß:\n",start+1,des+1);
-		/*Òª·´¹ıÀ´Õ¹Ê¾£¬´ÓAµ½BµÄÂ·¾¶Õ¹Ê¾£¬Ç°ÃæĞèÒªÒÔAÎªÔ´µã£¬Ò»²½²½µ¹ÍÆµ½B£¬
-		È»ºó´ËÊ±Í¨¹ıpre½øĞĞ»ØËİ
-		Õ¹Ê¾³öÀ´¾ÍÊÇÕıÏòµÄ*/
+		//æ‰“å°æœ€çŸ­è·¯å¾„
+		printf("ä»%dåˆ°%dè·¯çº¿:\n",start+1,des+1);
+		/*è¦åè¿‡æ¥å±•ç¤ºï¼Œä»Aåˆ°Bçš„è·¯å¾„å±•ç¤ºï¼Œå‰é¢éœ€è¦ä»¥Aä¸ºæºç‚¹ï¼Œä¸€æ­¥æ­¥å€’æ¨åˆ°Bï¼Œ
+		ç„¶åæ­¤æ—¶é€šè¿‡preè¿›è¡Œå›æº¯
+		å±•ç¤ºå‡ºæ¥å°±æ˜¯æ­£å‘çš„*/
 		for (int i = des; i != start; i = pre[i]) {
 			printf("%d -> ", i+1);
 		}
-		printf("%d,×Ü¾àÀë%d\n", start+1,dis[des]);
+		printf("%d,æ€»è·ç¦»%d\n", start+1,dis[des]);
 
 		return dis[des];
 	}
 };
 
-//µÚÈıÌâ
+//ç¬¬ä¸‰é¢˜
 typedef struct Place {
-	char name[10];//´¢´æµØÀíÎ»ÖÃµÄÃû³Æ
-	int station[10];//´¢´æ¸½½üÕ¾µã
-	int length;//¼ÇÂ¼Õ¾µãÊıÁ¿
+	char name[10];//å‚¨å­˜åœ°ç†ä½ç½®çš„åç§°
+	int station[10];//å‚¨å­˜é™„è¿‘ç«™ç‚¹
+	int length;//è®°å½•ç«™ç‚¹æ•°é‡
 
 	Place() { length = 0; }
 }Place;
 
-//Â·Ïß¹æ»®º¯Êı
+//è·¯çº¿è§„åˆ’å‡½æ•°
 void pathplanning(Place* place, graphE* ge) {
 	int A = 0, B = 0;
 	int p1 = 0, p2 = 0;
-	printf("ÇëÊäÈëÆğµãºÍÖÕµãµÄĞòºÅ:\n");
+	printf("è¯·è¾“å…¥èµ·ç‚¹å’Œç»ˆç‚¹çš„åºå·:\n");
 	scanf("%d,%d", &A, &B);
 	int shortdis = 100000;
 	for (int i = 0; i < place[A-1].length; i++) {
@@ -458,33 +458,33 @@ void pathplanning(Place* place, graphE* ge) {
 			}
 		}
 	}
-	printf("×î¶ÌÂ·¾¶ÈçÏÂ:\n");
+	printf("æœ€çŸ­è·¯å¾„å¦‚ä¸‹:\n");
 	ge->shortestway(p1, p2, ge);
 
 }
 
 
-/*ÒÔÏÂÊÇµÚËÄÌâ´úÂë*/
-//ÓÅ»¯¶Ñ½á¹¹
+/*ä»¥ä¸‹æ˜¯ç¬¬å››é¢˜ä»£ç */
+//ä¼˜åŒ–å †ç»“æ„
 class IndexHeap {
 	struct Node {
-		int* dist;//¶¥µãµ½Éú³ÉÊ÷µÄ×îĞ¡¾àÀë
-		int* pos;//¶¥µãÔÚ¶ÑÖĞµÄÎ»ÖÃ
+		int* dist;//é¡¶ç‚¹åˆ°ç”Ÿæˆæ ‘çš„æœ€å°è·ç¦»
+		int* pos;//é¡¶ç‚¹åœ¨å †ä¸­çš„ä½ç½®
 	};
 
 public:
-	int* index;//¶Ñ½Úµã¶ÔÓ¦µÄ¶¥µã±àºÅ
+	int* index;//å †èŠ‚ç‚¹å¯¹åº”çš„é¡¶ç‚¹ç¼–å·
 	Node* ass;
 	int size;
 	int count;
 
 	IndexHeap(int maxsize) {
-		int inf = 100000;//ÎŞ·¨µ½´ï
+		int inf = 100000;//æ— æ³•åˆ°è¾¾
 		ass = new Node;
 		count = 0;
 		size = maxsize;
 		index = new int[maxsize + 1]();
-		index[0] = 0;//ÉÚ±ø
+		index[0] = 0;//å“¨å…µ
 		ass->dist = new int[maxsize+1]();
 		ass->pos = new int[maxsize+1]();
 		for (int i = 0; i <= size; i++) {
@@ -496,9 +496,9 @@ public:
 
 	void SwapIndex(IndexHeap* heap, int i) {
 		heap->ass->pos[heap->index[i]] = i;
-	}//iÊÇ¶¥µãÔÚ¶ÑÖĞµÄÎ»ÖÃ£¬index[i]ÊÇ¶¥µã±àºÅ
+	}//iæ˜¯é¡¶ç‚¹åœ¨å †ä¸­çš„ä½ç½®ï¼Œindex[i]æ˜¯é¡¶ç‚¹ç¼–å·
 
-	//²åÈë¶¥µã±àºÅÎªvµÄ¶¥µã,²åÈëÒ»¸öindex
+	//æ’å…¥é¡¶ç‚¹ç¼–å·ä¸ºvçš„é¡¶ç‚¹,æ’å…¥ä¸€ä¸ªindex
 	void InsertIndex(IndexHeap* heap, int v) {
 		int x = heap->ass->dist[v];
 		int child;
@@ -506,13 +506,13 @@ public:
 			x < heap->ass->dist[heap->index[child / 2]] &&child>0;
 			child /= 2) {
 			heap->index[child] = heap->index[child / 2];
-			SwapIndex(heap, child);//childÊÇv¶¥µãÔÚ¶ÑÖĞµÄÎ»ÖÃ
+			SwapIndex(heap, child);//childæ˜¯vé¡¶ç‚¹åœ¨å †ä¸­çš„ä½ç½®
 		}
 		heap->index[child] = v;
 		SwapIndex(heap, child);
 	}
 
-	//É¾³ı²¢·µ»Ø×îĞ¡±ßµÄË÷Òı
+	//åˆ é™¤å¹¶è¿”å›æœ€å°è¾¹çš„ç´¢å¼•
 	int DeleteIndex(IndexHeap* heap) {
 		int v = heap->index[1];
 		int x = heap->ass->dist[heap->index[heap->count--]];
@@ -538,12 +538,12 @@ public:
 		return v;
 	}
 
-	//ĞŞ¸Ädist[v]¼õÉÙÖÁx£¬²¢µ÷Õû¶Ñ
+	//ä¿®æ”¹dist[v]å‡å°‘è‡³xï¼Œå¹¶è°ƒæ•´å †
 	void Fixup(IndexHeap* heap, int v, int x) {
 		heap->ass->dist[v] = x;
 		int child;
 
-		//Ê¹ÓÃpos·ÃÎÊ¶Ñ¶ø²»ÊÇv
+		//ä½¿ç”¨posè®¿é—®å †è€Œä¸æ˜¯v
 
 		for (child = heap->ass->pos[v];
 			x < heap->ass->dist[heap->index[child / 2]] &&child>0;
@@ -557,24 +557,24 @@ public:
 
 };
 
-//ÁÚ½Ó±í¹¹½¨Í¼£¨Êı×é£©
+//é‚»æ¥è¡¨æ„å»ºå›¾ï¼ˆæ•°ç»„ï¼‰
 class graphL {
-	typedef struct Enode {//±ß±í½Úµã
-		int adjvex;//ÁÚ½ÓµãÓò£»
-		int weight;//È¨ÖØ
+	typedef struct Enode {//è¾¹è¡¨èŠ‚ç‚¹
+		int adjvex;//é‚»æ¥ç‚¹åŸŸï¼›
+		int weight;//æƒé‡
 		Enode* next;
 	}Enode;
 
-	typedef struct Vnode {//¶¥µã±í½Úµã
-		int vertex;//¶¥µãÓò
-		Enode* firstedge;//±ß±íÍ·Ö¸Õë
+	typedef struct Vnode {//é¡¶ç‚¹è¡¨èŠ‚ç‚¹
+		int vertex;//é¡¶ç‚¹åŸŸ
+		Enode* firstedge;//è¾¹è¡¨å¤´æŒ‡é’ˆ
 	}Vnode;
 
 public:
 	int numV, numE;
 	vector<Vnode> adjlist;
 
-	//³õÊ¼»¯º¯Êı
+	//åˆå§‹åŒ–å‡½æ•°
 	graphL(int V,int E) {
 		numV = V;
 		numE = E;
@@ -589,7 +589,7 @@ public:
 		Enode* e{};
 		int v1, v2, w;;
 		for (int k = 0; k < gl->numE; k++) {
-			printf("ÊäÈë±ß<vi,vj>µÄ¶¥µãĞòºÅºÍÈ¨ÖØ:\n");
+			printf("è¾“å…¥è¾¹<vi,vj>çš„é¡¶ç‚¹åºå·å’Œæƒé‡:\n");
 			scanf("%d,%d,%d", &v1, &v2, &w);
 			getchar();
 
@@ -602,8 +602,8 @@ public:
 			e->next = gl->adjlist[v1 - 1].firstedge;
 			gl->adjlist[v1 - 1].firstedge = e;
 			
-			//ÕâÀïÒ»¶¨ÒªÓÃmallocÖØĞÂ·ÖÅä£¬
-			//²»È»ÉÏÃæÒ»¸öµÄµØÖ·ºÍÏÂÃæµÄµØÖ·»áÁ¬ÆğÀ´
+			//è¿™é‡Œä¸€å®šè¦ç”¨mallocé‡æ–°åˆ†é…ï¼Œ
+			//ä¸ç„¶ä¸Šé¢ä¸€ä¸ªçš„åœ°å€å’Œä¸‹é¢çš„åœ°å€ä¼šè¿èµ·æ¥
 			e = (Enode*)malloc(sizeof(Enode));
 			if (e == nullptr) {
 				exit(0);
@@ -622,7 +622,7 @@ public:
 				exit(0);
 			}
 			e = gl->adjlist[i].firstedge;
-			printf("¶¥µã%dµÄÁÚ½Ó±í:\n%d->", i+1,i+1);
+			printf("é¡¶ç‚¹%dçš„é‚»æ¥è¡¨:\n%d->", i+1,i+1);
 			while (e->next != nullptr) {
 				printf("%d->", e->adjvex);
 				e = e->next;
@@ -632,19 +632,19 @@ public:
 		}
 	}
 
-	//prim+¶Ñ£¨ÓÅÏÈĞòÁĞ£©
+	//prim+å †ï¼ˆä¼˜å…ˆåºåˆ—ï¼‰
 	int prim_optim(graphL* gl, IndexHeap* heap, int start) {
 	
 		int sum = 0;
 		heap->ass->dist[start] = 0;
 
-		//½«glÍ¼ÖĞµÄ¾àÀëµ¼ÈëheapÖĞ
+		//å°†glå›¾ä¸­çš„è·ç¦»å¯¼å…¥heapä¸­
 		Enode* e = new Enode;
-		e = gl->adjlist[start-1].firstedge;//ÕÒµ½Ö±½ÓºÍ³ö·¢µãÁ¬½ÓµÄµã
+		e = gl->adjlist[start-1].firstedge;//æ‰¾åˆ°ç›´æ¥å’Œå‡ºå‘ç‚¹è¿æ¥çš„ç‚¹
 
 		while (e != nullptr) {
 			heap->ass->dist[e->adjvex] = e->weight;
-			e = e->next;//ÏÈ¼ÓÈëËùÓĞÖ±½ÓÁ¬½ÓµÄµã
+			e = e->next;//å…ˆåŠ å…¥æ‰€æœ‰ç›´æ¥è¿æ¥çš„ç‚¹
 		}
 
 		for (int i = 1; i <= gl->numV; i++) {
@@ -653,11 +653,11 @@ public:
 
 	
 
-		printf("Â·¾¶ÈçÏÂ:\n");
+		printf("è·¯å¾„å¦‚ä¸‹:\n");
 		printf("%d", start);
-		while (heap->count!=1) {//ÆğµãÒ²ÔÚÊ÷ÀïÃæ£¬ÏÂ±êÎª0
+		while (heap->count!=1) {//èµ·ç‚¹ä¹Ÿåœ¨æ ‘é‡Œé¢ï¼Œä¸‹æ ‡ä¸º0
 
-			//´Ë¶Î´úÂëÕ¹Ê¾ÁË¶ÑµÄ½Úµã£¬ĞèÒªÊ±¿ÉÆôÓÃ£¬²é¿´¶Ñ½ÚµãµÄ±ä»¯
+			//æ­¤æ®µä»£ç å±•ç¤ºäº†å †çš„èŠ‚ç‚¹ï¼Œéœ€è¦æ—¶å¯å¯ç”¨ï¼ŒæŸ¥çœ‹å †èŠ‚ç‚¹çš„å˜åŒ–
 			//for (int i = 1; i <= gl->numV; i++) {
 				//if(heap->ass->dist[i]!=100000)
 				//printf("%d,%d,%d\n", i, heap->ass->pos[i], heap->ass->dist[i]);
@@ -665,11 +665,11 @@ public:
 			
 			int minIndex= heap->DeleteIndex(heap);
 			int minDist = heap->ass->dist[minIndex];
-			heap->ass->dist[minIndex] = 0;//¸Ãµã¼ÓÈëÉú³ÉÊ÷
+			heap->ass->dist[minIndex] = 0;//è¯¥ç‚¹åŠ å…¥ç”Ÿæˆæ ‘
 			sum += minDist;
 			
 
-			//¸üĞÂdistÊı×é
+			//æ›´æ–°distæ•°ç»„
 			Enode* e = new Enode;
 			e = gl->adjlist[minIndex-1].firstedge;
 
@@ -677,20 +677,20 @@ public:
 				int index = e->adjvex;
 				if (heap->ass->dist[index] != 0 && heap->ass->dist[index] > e->weight){
 					heap->Fixup(heap, index, e->weight);
-					//ÕâÀïµÄdistÓĞprimµ½Éú³ÉÊ÷µÄ¾àÀë£¬ºÍµÏ½ÜË¹ÌØÀ­Çóµ½Ô´µã¾àÀëµÄÇø±ğ
-					//primÀï£¬Ö»ĞèÒª±È½ÏĞÂµÄµã¶ÔÒÑÓĞÉú³ÉÊ÷ÖĞÄ³Ò»µãµÄ¾àÀë£¬ºÍµ½Éú³ÉÊ÷µÄ¾àÀë
-					//µÏ½ÜË¹ÌØÀ­Àï£¬ĞèÒª±È½ÏĞÂµÄµãµ½ÒÑÓĞµã¼¯ºÏÖĞÄ³Ò»µãµÄ¾àÀë+Ä³µãµ½Ô´µãµÄ¾àÀë£¬
-					//ºÍÄ³µãÖ±½Óµ½Ô´µãµÄ¾àÀë
+					//è¿™é‡Œçš„distæœ‰primåˆ°ç”Ÿæˆæ ‘çš„è·ç¦»ï¼Œå’Œè¿ªæ°æ–¯ç‰¹æ‹‰æ±‚åˆ°æºç‚¹è·ç¦»çš„åŒºåˆ«
+					//primé‡Œï¼Œåªéœ€è¦æ¯”è¾ƒæ–°çš„ç‚¹å¯¹å·²æœ‰ç”Ÿæˆæ ‘ä¸­æŸä¸€ç‚¹çš„è·ç¦»ï¼Œå’Œåˆ°ç”Ÿæˆæ ‘çš„è·ç¦»
+					//è¿ªæ°æ–¯ç‰¹æ‹‰é‡Œï¼Œéœ€è¦æ¯”è¾ƒæ–°çš„ç‚¹åˆ°å·²æœ‰ç‚¹é›†åˆä¸­æŸä¸€ç‚¹çš„è·ç¦»+æŸç‚¹åˆ°æºç‚¹çš„è·ç¦»ï¼Œ
+					//å’ŒæŸç‚¹ç›´æ¥åˆ°æºç‚¹çš„è·ç¦»
 				}
-				e = e->next;//ÏÂÒ»¸ö½Úµã
+				e = e->next;//ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 
 			}
 			
 
 			printf("->%d(%d)", minIndex, minDist);
 		}
-		printf("\n×ÜÂ·¾¶³¤¶È%d", sum);
-		return sum;//×îĞ¡Éú³ÉÊ÷µÄÂ·¾¶ºÍ
+		printf("\næ€»è·¯å¾„é•¿åº¦%d", sum);
+		return sum;//æœ€å°ç”Ÿæˆæ ‘çš„è·¯å¾„å’Œ
 	}
 };
 
@@ -700,11 +700,11 @@ public:
 
 
 int main() {
-	//µÚÒ»ÌâÊ¡ÂÔ
+	//ç¬¬ä¸€é¢˜çœç•¥
 
-	//µÚ¶şÌâ
-	//²ÉÓÃ±ß¼¯Êı×é±£´æ
-	//ĞèÒªÊäÈëµÄÍ¼Êı¾İÈçÏÂ
+	//ç¬¬äºŒé¢˜
+	//é‡‡ç”¨è¾¹é›†æ•°ç»„ä¿å­˜
+	//éœ€è¦è¾“å…¥çš„å›¾æ•°æ®å¦‚ä¸‹
 	/*
 	30,38
 1,2,120
@@ -747,20 +747,20 @@ int main() {
 2,3,133*/
 	graphE* ge = new graphE;
 	ge->CreateGraph_Edge(ge);
-	//Õ¹Ê¾µØÍ¼
+	//å±•ç¤ºåœ°å›¾
 	ge->ShowGraph_Edge(ge);
-	//step2:´æ´¢½ÚµãĞÅÏ¢
+	//step2:å­˜å‚¨èŠ‚ç‚¹ä¿¡æ¯
 	Place place[15];
 	for (int i = 0; i < 15; i++) {
-		printf("ÇëÊäÈë%dºÅµØµã:\n", i + 1);
+		printf("è¯·è¾“å…¥%då·åœ°ç‚¹:\n", i + 1);
 		scanf("%s", place[i].name);
 		getchar();
-		printf("ÇëÊäÈë¸ÃµØµãÁÙ½üµÄÕ¾µã¸öÊı:\n");
+		printf("è¯·è¾“å…¥è¯¥åœ°ç‚¹ä¸´è¿‘çš„ç«™ç‚¹ä¸ªæ•°:\n");
 		int m = 0;
 		scanf("%d", &m);
 
 		for (int j = 0; j < m; j++) {
-			printf("ÇëÊäÈëÕ¾µã:\n");
+			printf("è¯·è¾“å…¥ç«™ç‚¹:\n");
 			if (scanf("%d", &place[i].station[j]) == 1) {
 				place[i].length++;
 				getchar();
@@ -771,10 +771,10 @@ int main() {
 	}
 
 
-	//step3:Ñ°Â·
+	//step3:å¯»è·¯
 	pathplanning(place, ge);
 
-	//µÚËÄÌâ
+	//ç¬¬å››é¢˜
 
 	graphL* gl = new graphL(30, 38);
 	gl->CreateGraph_AL(gl);
